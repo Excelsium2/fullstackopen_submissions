@@ -1,0 +1,37 @@
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Grace Hopper",
+  "number": "123-456789"
+}
+###
+DELETE http://localhost:3001/api/persons/6afa77f2b2a30cac3f18f309
+###
+PUT http://localhost:3001/api/persons/6afa78a74e0e4f31662532dc
+Content-Type: application/json
+
+{
+  "number": "999-888-7777"
+}
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Test Delete",
+  "number": "123456"
+}
+
+###
+DELETE http://localhost:3001/api/persons/6afa90cb467f9e3d342a679b
+
+###
+POST http://localhost:3001/api/persons
+Content-Type: application/json
+
+{
+  "name": "Alice",
+  "number": "040-22334455"
+}
