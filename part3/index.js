@@ -26,7 +26,7 @@ const errorHandler = (error, request, response, next) => {
 app.use(express.json())
 app.use(express.static('dist'))
 morgan.token('body', (request) => {
-    return JSON.stringify(request.body)
+  return JSON.stringify(request.body)
 })
 
 app.use(morgan(':method :url :status :response-time ms :body'))
@@ -37,23 +37,23 @@ app.get('/', (request, response) => {
 })
 
 app.get('/info', (request, response, next) => {
-    Person.countDocuments({})
-        .then(count => {
-            const time = new Date()
+  Person.countDocuments({})
+    .then(count => {
+      const time = new Date()
 
-            response.send(`
+      response.send(`
                 <h1>Phonebook has info for ${count} people</h1>
                 <p>${time}</p>
             `)
-        })
-        .catch(next)
+    })
+    .catch(next)
 })
 app.get('/api/persons', (request, response, next) => {
-    Person.find({})
-        .then(persons => {
-            response.json(persons)
-        })
-        .catch(next)
+  Person.find({})
+    .then(persons => {
+      response.json(persons)
+    })
+    .catch(next)
 })
 app.get('/api/persons/:id', (request, response, next) => {
   Person.findById(request.params.id)
@@ -79,24 +79,24 @@ app.delete('/api/persons/:id', (request, response, next) => {
 })
 
 app.post('/api/persons', (request, response, next) => {
-    const body = request.body
+  const body = request.body
 
-    if (!body?.name || !body?.number) {
-        return response.status(400).json({
-            error: 'Name or number missing'
-        })
-    }
-
-    const person = new Person({
-        name: body.name,
-        number: body.number
+  if (!body?.name || !body?.number) {
+    return response.status(400).json({
+      error: 'Name or number missing'
     })
+  }
 
-    person.save()
-        .then(savedPerson => {
-            response.status(201).json(savedPerson)
-        })
-        .catch(next)
+  const person = new Person({
+    name: body.name,
+    number: body.number
+  })
+
+  person.save()
+    .then(savedPerson => {
+      response.status(201).json(savedPerson)
+    })
+    .catch(next)
 })
 
 app.put('/api/persons/:id', (request, response, next) => {
